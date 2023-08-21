@@ -254,7 +254,7 @@
 
 
                 </div>
-                <p class="fw-semibold mb-1" style="color:red;" id="error_message"></p>
+                <p class="fw-semibold mb-1" style="color:red;" id="error_messages"></p>
 
                     <div  class="p-4 bg-light my-4 rounded-3" id="hidden_div" >
 
@@ -410,7 +410,7 @@
                             class="input-group-append position-absolute top-50 end-0 translate-middle-y pe-1 z-3"
                           >
                             <span class="input-group-text border-0 p-1 input-icon-bg">
-                              <i class="fa-regular fa-calendar-days text-secondary"></i>
+                              {{-- <i class="fa-regular fa-calendar-days text-secondary"></i> --}}
                             </span>
                           </span>
                         </div>
@@ -430,7 +430,7 @@
                             class="input-group-append position-absolute top-50 end-0 translate-middle-y pe-1 z-3"
                           >
                             <span class="input-group-text border-0 p-1 input-icon-bg">
-                              <i class="fa-regular fa-calendar-days text-secondary"></i>
+                              {{-- <i class="fa-regular fa-calendar-days text-secondary"></i> --}}
                             </span>
                           </span>
                         </div>
@@ -827,14 +827,22 @@
                     <p  class="fs-4 text-center" id="text_hide">Pls Enter Your four digit Otp.</p>
                     <p style="color:green;" id="sucess-message"></p>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class=" col-md-10 text-center my-2 otp-box justify-content-around m-auto text-center d-flex ">
                             <input type="text" class="otp" type="text box" id="otp1" maxlength="1">
                             <input type="text" class="otp" type="text box" id="otp2" maxlength="1">
                             <input type="text" class="otp" type="text box" id="otp3" maxlength="1">
                             <input type="text" class="otp" type="text box" id="otp4" maxlength="1">
                         </div>
-                    </div>
+                    </div> --}}
+                    <div class="row">
+                        <div class="col-md-10 text-center my-2 otp-box justify-content-around m-auto text-center d-flex">
+                          <input type="text" class="otp" id="otp1" maxlength="1">
+                          <input type="text" class="otp" id="otp2" maxlength="1">
+                          <input type="text" class="otp" id="otp3" maxlength="1">
+                          <input type="text" class="otp" id="otp4" maxlength="1">
+                        </div>
+                      </div>
                     <p style="color:red;" id="error-otpvalid"></p>
                     <p style="color:red;" class="fs-5"  id="error-message"></p>
                     {{-- <div class="text-center">
@@ -1069,6 +1077,19 @@
 @section('required_JS')
 
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $(".otp").on("input", function() {
+      let value = $(this).val();
+      if (value.length === 1) {
+        $(this).next(".otp").focus();
+      } else if (value.length === 0) {
+        $(this).prev(".otp").focus();
+      }
+    });
+  });
+</script>
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -1175,10 +1196,11 @@ $.ajax({
                         '<td>' + value.email + '</td>' +
                         '<td>'+ value.rate +'</td>' +
                         '<td>'+ value.my3number +'</td>' +
-                        '<td>' +'<i class="fa-regular fa-file-lines fw-semibold text-secondary one-detail" data-customer-id="'+ value.raffle_id + '"></i>' +' '+
-                            '<i class="fa-regular fa-paste fw-semibold text-info detailed-invoice" data-customer-id="'+ value.transaction_id + '"></i>'+' '+
-                            '<a target="_blank" href="https://api.whatsapp.com/send?phone=971543688978&amp;text=https://www.littledraw.ae/ticket-view/AT1564c906a9cfa7a" class="btn text-secondary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="View Tickets"></a><i class="fa-brands fa-whatsapp fw-semibold text-info" data-customer-id="'+ value.id + '"></i>'
-                            + '</td>' +
+                        '<td>' +
+                            '<a target="_blank" href="https://www.littledraw.ae/invoice/' + value.transaction_id + '" class="btn text-primary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="View Receipt"><span class="fa fa-file-text-o" style="font-size: 18px;"></span><i class="fa-regular fa-file-lines fw-semibold text-secondary"></i></a>' +
+                            '<a target="_blank" href="https://www.littledraw.ae/ticket-view/' + value.transaction_id + '" class="btn text-secondary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="View Tickets"><span class="fa fa-files-o" style="font-size: 18px;"></span><i class="fa-regular fa-paste fw-semibold text-info"></i></a>' +
+                            '<a target="_blank" href="https://api.whatsapp.com/send?phone=' + value.mobile + '&amp;text=https://www.littledraw.ae/ticket-view/' + value.transaction_id + '" class="btn text-secondary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="View Tickets"><i class="fa-brands fa-whatsapp fw-semibold text-info"></i></a>' +
+                             '</td>' +
                     '</tr>';
                     tableBody.row.add($(newRow)).draw();
                 });
@@ -1422,9 +1444,10 @@ console.log(response)
                         'customer_mobnum': customer_mobnum,
                     },
                     success: function(response) {
-            // alert('sdfsfs');
-            console.log(response.data.customer.id)
-            $('#customerid').text(response.data.customer.id);
+       console.log(response.data.error)
+
+
+
             if(response.code === 200){
                 $('#hidden_div').show();
                 $('#error_message').hide();
@@ -1446,10 +1469,11 @@ console.log(response)
             }
             if(response.code === 401){
                 $('#hidden_div').hide();
-                // console.log(response.code)
-                $('#error_message').html();
-                if(response.data){
-                    $('#error_message').text(response.data);
+alert('sdfdsgd')
+                $('#error_messages').html();
+                if(response.data.error){
+
+                    $('#error_messages').text(response.data.error);
             }
         }
 
@@ -1457,7 +1481,7 @@ console.log(response)
 
                     },
                     error: function(error) {
-
+                        console.log(response)
                     }
 
                 });
@@ -1532,8 +1556,6 @@ $(document).ready(function() {
 
   $("#preview_id").on("click", function() {
 
-
-    // var inputArray = [];
 
     var selectedValues=[];
     var selectedmy3number=[];

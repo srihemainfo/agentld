@@ -577,13 +577,13 @@ form input{
                     <p style="color:red;" class="fs-5" id="otpvalid"></p>
 
                     <div class="row">
-                        <div class=" col-md-10 text-center my-2 otp-box justify-content-around m-auto text-center d-flex ">
-                            <input type="text" class="otp" oninput='digitValidate(this)' onkeyup='tabChange(1)'  type="text box" id="otp1" maxlength="1">
-                            <input type="text" class="otp" oninput='digitValidate(this)' onkeyup='tabChange(2)'  type="text box" id="otp2" maxlength="1">
-                            <input type="text" class="otp" oninput='digitValidate(this)' onkeyup='tabChange(3)'  type="text box" id="otp3" maxlength="1">
-                            <input type="text" class="otp" oninput='digitValidate(this)' onkeyup='tabChange(4)' type="text box" id="otp4" maxlength="1">
+                        <div class="col-md-10 text-center my-2 otp-box justify-content-around m-auto text-center d-flex">
+                          <input type="text" class="otp" id="otp1" maxlength="1">
+                          <input type="text" class="otp" id="otp2" maxlength="1">
+                          <input type="text" class="otp" id="otp3" maxlength="1">
+                          <input type="text" class="otp" id="otp4" maxlength="1">
                         </div>
-                    </div>
+                      </div>
 
                     <p style="color:red;" id="error-message"></p>
 
@@ -808,24 +808,20 @@ form input{
 @section('required_JS')
 
 @endsection
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-let digitValidate = function(ele){
-
-  console.log(ele.value);
-  ele.value = ele.value.replace(/[^0-9]/g,'');
-}
-
-let tabChange = function(val){
-    let ele = document.querySelectorAll('input');
-    if(ele[val-1].value != ''){
-      ele[val].focus()
-    }else if(ele[val-1].value == ''){
-      ele[val-2].focus()
-    }
- }
-
+  $(document).ready(function() {
+    $(".otp").on("input", function() {
+      let value = $(this).val();
+      if (value.length === 1) {
+        $(this).next(".otp").focus();
+      } else if (value.length === 0) {
+        $(this).prev(".otp").focus();
+      }
+    });
+  });
 </script>
+
 <script>
     $(document).ready(function() {
         var sessionData = @json(session()->all());

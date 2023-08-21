@@ -239,6 +239,7 @@ class AuthController extends Controller
 
            $auth= auth()->user()->id;
 
+
         //    $validator =  Validator::make($request->all(),[
 
         //     'mobile_code' => 'required',
@@ -252,12 +253,12 @@ class AuthController extends Controller
         //             "message" => $validator->errors(),
         //         ], 422);
         //     }
-            $user = DB::table('user_register')->where('id',$auth)->first();
+            // $user = DB::table('user_register')->where('mobile',$)->first();
 
 
             $otp = rand(1000,9999);
 
-            $details=DB::table('user_register')->where('id', $auth)->update(['otp' => $otp]);
+            $details=DB::table('user_register')->where('mobile', $request->mobile)->update(['otp' => $otp]);
 
 
             $to = ''.'+'.$request->mobile_code.$request->mobile;

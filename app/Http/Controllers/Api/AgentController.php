@@ -527,7 +527,10 @@ public function profile_update(Request $request){
                     $response = [
                         'status'=>false,
                         'code'=>401,
-                        'data' =>'No Data Available!',
+                        'data' =>[
+                            'error'=>'No Data Available!',
+
+                            ]
                     ];
                     return response($response,200);
                 }

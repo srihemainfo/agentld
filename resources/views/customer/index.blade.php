@@ -272,7 +272,7 @@
                   class="input-group-append position-absolute top-50 end-0 translate-middle-y pe-1 z-3"
                 >
                   <span class="input-group-text border-0 p-1 input-icon-bg">
-                    <i class="fa-regular fa-calendar-days text-secondary"></i>
+                    {{-- <i class="fa-regular fa-calendar-days text-secondary"></i> --}}
                   </span>
                 </span>
               </div>
@@ -292,7 +292,7 @@
                   class="input-group-append position-absolute top-50 end-0 translate-middle-y pe-1 z-3"
                 >
                   <span class="input-group-text border-0 p-1 input-icon-bg">
-                    <i class="fa-regular fa-calendar-days text-secondary"></i>
+                    {{-- <i class="fa-regular fa-calendar-days text-secondary"></i> --}}
                   </span>
                 </span>
               </div>
