@@ -261,9 +261,9 @@
             </div>
 
             <div class="col-6">
-              <div class="input-group date position-relative" id="datepicker">
+              <div class="input-group date position-relative" >
                 <input
-                  type="text"
+                  type="date"
                   placeholder="mm/dd/yyyy"
                   class="form-control rounded-3 fs-6 z-1 input-bg"
                   id="from_date"
@@ -280,10 +280,10 @@
             <div class="col-6 ps-0">
               <div
                 class="input-group date position-relative"
-                id="datepicker2"
+
               >
                 <input
-                  type="text"
+                  type="date"
                   placeholder="mm/dd/yyyy"
                   class="form-control rounded-3 fs-6 z-1 input-bg"
                   id="to_date"

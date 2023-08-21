@@ -399,11 +399,11 @@
                   {{-- <form> --}}
                     <div class="row date-picker-group form-group">
                       <div class="col-5">
-                        <div class="input-group date position-relative" id="datepicker">
+                        <div class="input-group date position-relative" >
                           <input
-                            type="text"
+                            type="date"
                             placeholder="mm/dd/yyyy"
-                            class="form-control rounded-3 fs-6 z-1 input-bg"
+                            class="form-control"
                             id="from_date"
                           />
                           <span
@@ -418,12 +418,12 @@
                       <div class="col-5 ps-0">
                         <div
                           class="input-group date position-relative"
-                          id="datepicker2"
+
                         >
                           <input
-                            type="text"
+                             type="date"
                             placeholder="mm/dd/yyyy"
-                            class="form-control rounded-3 fs-6 z-1 input-bg"
+                            class="form-control"
                             id="to_date"
                           />
                           <span
