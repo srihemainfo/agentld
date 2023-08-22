@@ -26,27 +26,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.signup');
 });
 
-// Sign up page call
-Route::get('/sign-up', function () {
-    return view('pages.signup');
-})->name('sign-up');
 
-
-// Sign In page call
-// Route::get('/sign-in', function () {
-//     return view('pages.signin');
-// })->name('sign-in');
-
-// Route::get('/user-login', function () {
-//     return view('pages.userlogin');
-// })->name('sign-in');
-
-Route::get('/user-login', function () {
-    return view('agent.dashboard');
-})->name('dashboard');
 
 // Auth::routes();
 Route::any('/agent-signin', [App\Http\Controllers\AgentSigninController::class, 'agent_signin'])->name('agent-signin');
